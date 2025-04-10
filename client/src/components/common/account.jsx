@@ -121,7 +121,7 @@ const Account = () => {
                 <span><IoSettings className='text-[1.2rem] text-white'/></span> 
                 <h2 className=''>Settings</h2>
               </div>
-              <div className='hover:text-violet-300 cursor-pointer flex gap-2 items-center' onClick={()=>{navigate("/profile/profile")}}>
+              <div className='hover:text-violet-300 cursor-pointer flex gap-2 items-center' onClick={()=>{navigate("/profile/profile/basic")}}>
                 <span><CiUser className='text-[1.2rem] text-white'/></span> 
                 <h2 className=''>Profile</h2>
               </div>

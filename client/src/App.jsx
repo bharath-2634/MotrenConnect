@@ -12,6 +12,7 @@ import CheckAuth from './components/common/checkAuth';
 import GetStarted from './pages/auth/getStarted'
 import Profile from './pages/profile/profile'
 import ProfileLayout from './components/profile-view/layout'
+import BasicInfo from './components/profile-view/basicInfo'
 
 
 const App = () => {
@@ -57,7 +58,9 @@ const App = () => {
           <Route path='/profile' element={<CheckAuth isAuthenticated={isAuthenticated} user={user}>
             <ProfileLayout/>
           </CheckAuth>}>
-              <Route path='profile' element={<Profile/>}/>
+              <Route path='profile' element={<Profile/>}>
+                <Route path='basic' element={<BasicInfo/>}/>
+              </Route>
           </Route>
       </Routes>
     </div>
