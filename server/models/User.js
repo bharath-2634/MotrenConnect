@@ -37,13 +37,17 @@ const UserSchema = new mongoose.Schema({
     enum: ["subscriber", "developer", "contributor"],
     default: "subscriber",
   },
-
+  monthTarget : {
+    type : Number,
+    default : 0
+  },
   profile: {
     full_name: String,
     gender: {
       type: String,
       enum: ["male", "female", "trans"],
     },
+    envelope : [Number],
     phone: String,
     location: String,
     DOB: Date,
@@ -54,6 +58,10 @@ const UserSchema = new mongoose.Schema({
       default: 0,
     },
     points: {
+      type: Number,
+      default: 0,
+    },
+    crown: {
       type: Number,
       default: 0,
     },
@@ -68,6 +76,7 @@ const UserSchema = new mongoose.Schema({
       instagram: String,
       threads: String,
       twitter: String,
+      // default : "",
     },
     experience: {
       work: String,

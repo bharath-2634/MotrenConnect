@@ -9,7 +9,6 @@ const Home = () => {
           <h2 className='text-white font-semibold font-poppins text-[1.6rem]'>Track your Progress </h2>
           <Tracker/>
         </div>
-        
     </div>
   )
 }

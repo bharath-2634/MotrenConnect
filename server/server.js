@@ -7,7 +7,7 @@ const authRouter = require('./routers/auth/auth-router');
 
 
 mongoose
-  .connect(process.env.CONNECTION_URL)
+  .connect("mongodb+srv://bharath2005:bharath2005@cluster0.0vibjmv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 

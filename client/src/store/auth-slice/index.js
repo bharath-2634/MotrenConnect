@@ -68,7 +68,7 @@ export const googleLogin = createAsyncThunk(
       { withCredentials: true }
     );
 
-    // console.log("slice", response.data);
+    console.log("slice", response.data);
     const data = response.data;
     if(data.success) {
       localStorage.setItem("token",data.token);
@@ -118,6 +118,20 @@ export const checkAuth = createAsyncThunk(
   }
 );
 
+export const fetchUserById = createAsyncThunk(
+  "/auth/fetchUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/auth/user/${userId}`,
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 
 const authSlice = createSlice({
@@ -133,8 +147,8 @@ const authSlice = createSlice({
             state.isLoading = true
         }).addCase(registerUser.fulfilled, (state,action)=>{
             state.isLoading = false;
-            state.user = null;
-            state.isAuthenticated = false;
+            state.user = action.payload.success ? action.payload.user : null;
+            state.isAuthenticated = action.payload.success;
         }).addCase(registerUser.rejected, (state,action)=>{
             state.isLoading = false;
             state.user = null;
@@ -185,7 +199,19 @@ const authSlice = createSlice({
           state.isLoading = false;
           state.user = null;
           state.isAuthenticated = false;
-        });
+        })
+        .addCase(fetchUserById.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(fetchUserById.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.user = action.payload.success ? action.payload.user : null;
+        })
+        .addCase(fetchUserById.rejected, (state) => {
+          state.isLoading = false;
+          state.user = null;
+        })
+        ;
         
     }
 

@@ -7,9 +7,6 @@ const { OAuth2Client } = require("google-auth-library");
 // Google OAuth2 Client
 const client = new OAuth2Client(process.env.GOOGLE_OAUTH);
 
-// Register User
-
-
 const registerUser = async (req, res) => {
     try {
         const { userName, email, password, authType = "email", MCID } = req.body;
@@ -47,6 +44,11 @@ const registerUser = async (req, res) => {
             password: hashPassword,
             authType,
             MCID: generatedMCID,
+            profile : {
+                envelope : [1],
+                points : 10,
+                crown : 1,
+            }
         });
 
         console.log("newUser", newUser);
@@ -186,6 +188,11 @@ const googleAuth = async (req, res) => {
                 avatar_url: payload.picture,
                 authType: "google",
                 MCID, 
+                profile : {
+                    envelope : [1],
+                    points : 10,
+                    crown : 1,
+                }
             });
             await user.save();
         }
@@ -250,7 +257,42 @@ const authMiddleware = async (req, res, next) => {
         message: "Unauthorised user!",
       });
     }
-  };
+};
+
+const getUser = async (req, res) => {
+  try {
+    const { id: userId } = req.params;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorised user!",
+      });
+    }
+
+    const user = await User.findById(userId); // ✅ returns single object
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      user,
+      message: "Found User!",
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({
+      success: false,
+      message: "Server Error!",
+    });
+  }
+};
+
   
 
-module.exports = { registerUser, loginUser, googleAuth , logoutUser , authMiddleware};
+module.exports = { registerUser, loginUser, googleAuth , logoutUser , authMiddleware,getUser};
