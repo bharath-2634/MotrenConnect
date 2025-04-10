@@ -42,17 +42,35 @@ const UserSchema = new mongoose.Schema({
     default : 0
   },
   profile: {
-    full_name: String,
+    full_name: {
+      type : String,
+      default : ""
+    },
     gender: {
       type: String,
       enum: ["male", "female", "trans"],
     },
     envelope : [Number],
-    phone: String,
-    location: String,
-    DOB: Date,
-    bio: String,
-    avatar_url: String,
+    phone: {
+      type : String,
+      default : ""
+    },
+    location: {
+      type : String,
+      default : ""
+    },
+    DOB: {
+      type : Date,
+      default : Date.now
+    },
+    bio: {
+      type : String,
+      default : ""
+    },
+    avatar_url: {
+      type : String,
+      default : ""
+    },
     fundGrade: {
       type: Number,
       default: 0,

@@ -10,6 +10,8 @@ import { checkAuth } from './store/auth-slice'
 import { useEffect } from 'react'
 import CheckAuth from './components/common/checkAuth';
 import GetStarted from './pages/auth/getStarted'
+import Profile from './pages/profile/profile'
+import ProfileLayout from './components/profile-view/layout'
 
 
 const App = () => {
@@ -50,6 +52,12 @@ const App = () => {
                             <HomeLayout/>
                           </CheckAuth>}>
               <Route path='home' element={<Home/>}/>
+              {/* <Route path='profile' element={<Profile/>}/> */}
+          </Route>
+          <Route path='/profile' element={<CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <ProfileLayout/>
+          </CheckAuth>}>
+              <Route path='profile' element={<Profile/>}/>
           </Route>
       </Routes>
     </div>

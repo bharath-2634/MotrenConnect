@@ -1,5 +1,5 @@
 import React from 'react'
-import HorizontalScroll from './collaborate'
+// import HorizontalScroll from './collaborate'
 import Tracker from './tracker'
 
 const Home = () => {

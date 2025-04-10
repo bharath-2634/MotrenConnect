@@ -11,6 +11,7 @@ import { IoSettings } from "react-icons/io5";
 import { CiUser } from "react-icons/ci";
 import { FiLogOut } from "react-icons/fi";
 import { fetchUserById, logoutUser } from '@/store/auth-slice';
+import { useNavigate } from 'react-router-dom';
 
 const Account = () => {
   const { user, isAuthenticated, isLoading } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ const Account = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const dropdownRef = useRef();
 
@@ -119,7 +121,7 @@ const Account = () => {
                 <span><IoSettings className='text-[1.2rem] text-white'/></span> 
                 <h2 className=''>Settings</h2>
               </div>
-              <div className='hover:text-violet-300 cursor-pointer flex gap-2 items-center'>
+              <div className='hover:text-violet-300 cursor-pointer flex gap-2 items-center' onClick={()=>{navigate("/profile/profile")}}>
                 <span><CiUser className='text-[1.2rem] text-white'/></span> 
                 <h2 className=''>Profile</h2>
               </div>

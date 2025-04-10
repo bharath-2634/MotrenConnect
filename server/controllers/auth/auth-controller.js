@@ -185,7 +185,7 @@ const googleAuth = async (req, res) => {
            user = new User({
                 userName: payload.family_name,
                 email : payload.email,
-                avatar_url: payload.picture,
+                avatar_url: payload.picture || "hello",
                 authType: "google",
                 MCID, 
                 profile : {
