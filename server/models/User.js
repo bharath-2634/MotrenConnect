@@ -49,6 +49,7 @@ const UserSchema = new mongoose.Schema({
     gender: {
       type: String,
       enum: ["male", "female", "trans"],
+      default : "male"
     },
     envelope : [Number],
     phone: {
@@ -101,13 +102,6 @@ const UserSchema = new mongoose.Schema({
       education: String,
     },
     skills: [String],
-    address: {
-      street: String,
-      city: String,
-      state: String,
-      postal_code: String,
-      country: String,
-    }
   },
 
   metadata: {

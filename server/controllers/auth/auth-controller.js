@@ -297,7 +297,7 @@ const updateUser = async (req,res) => {
     try {
         // const {id}  = req.params;
         const {user} = req.body;
-
+        // console.log(user);
         if(!user) {
             return res.status(401).json({
                 success: false,
@@ -305,6 +305,10 @@ const updateUser = async (req,res) => {
             });
         }
         const userId = user._id;
+
+        if(!userId) {
+            console.log("No UserId found");
+        }
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
