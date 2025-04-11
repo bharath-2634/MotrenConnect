@@ -12,11 +12,13 @@ import { CiUser } from "react-icons/ci";
 import { FiLogOut } from "react-icons/fi";
 import { fetchUserById, logoutUser } from '@/store/auth-slice';
 import { useNavigate } from 'react-router-dom';
+import rotatingMail from "../../assets/rotating-coin.gif"
 
 const Account = () => {
   const { user, isAuthenticated, isLoading } = useSelector((state) => state.auth);
   const [userName, setUserName] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showEnvelop,setShowEnvelop] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,10 +54,12 @@ const Account = () => {
     dispatch(logoutUser());
   }
 
+  
+
   return (
     <div className='fixed top-5 right-10 text-white flex items-center justify-center gap-2 z-20' ref={dropdownRef}>
       <div className='flex items-center justify-center border-gray-500 px-2 py-1 border-[.1rem] 
-        rounded-[.5rem] relative w-[48px] h-[40px]'>
+        rounded-[.5rem] relative w-[48px] h-[40px]' onClick={()=>{setShowEnvelop(true)}}>
         <img 
           src={envelop}
           alt="Envelope Icon" 
@@ -66,6 +70,39 @@ const Account = () => {
           {user?.profile?.envelope.length}
         </div>
       </div>
+
+      {showEnvelop && (
+  <div className='fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-[9999]'>
+    <div className='bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl relative w-[90%] max-w-[600px] max-h-[80%] overflow-auto'>
+      
+      {/* Heading and Close Button */}
+      <div className='flex items-center justify-between mb-6'>
+        <h2 className='text-white text-xl font-semibold'>🎁 Gifts for you!</h2>
+        <button
+          onClick={() => setShowEnvelop(false)}
+          className="text-white bg-black/30 p-2 rounded hover:bg-black/50 transition"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Envelope Grid */}
+      <div className='grid grid-cols-3 gap-4'>
+        {user?.profile?.envelope?.map((value, i) => (
+          <div key={i} className="cursor-pointer" onClick={() => console.log("Clicked Envelope ID:", value)}>
+            <img
+              src={rotatingMail}
+              alt={`Envelope ${value}`}
+              className="w-[10rem] h-[10rem] object-contain"
+            />
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+)}
+
 
       {/* Notification */}
       <div className='flex items-center justify-center border-gray-500 px-3 py-[.6rem] border-[.1rem] 
