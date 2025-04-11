@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 const Profile = () => {
   return (
     <div className='w-full flex flex-col items-center justify-center gap-3 mb-10'>
-        <ProfileCard/>
+        {/* <ProfileCard/> */}
         <div className='flex w-full justify-between gap-20 px-10'>
           <ProfileMenu/>
           <Outlet/>

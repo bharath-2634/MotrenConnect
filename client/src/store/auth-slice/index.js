@@ -133,6 +133,23 @@ export const fetchUserById = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  "/auth/updateUser",
+  async (updatedUser, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        "http://localhost:5000/api/auth/updateUser",
+        { user: updatedUser },
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 
 const authSlice = createSlice({
     name : 'auth',
@@ -210,6 +227,19 @@ const authSlice = createSlice({
         .addCase(fetchUserById.rejected, (state) => {
           state.isLoading = false;
           state.user = null;
+        })
+        .addCase(updateUserProfile.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(updateUserProfile.fulfilled, (state, action) => {
+          state.isLoading = false;
+          if (action.payload.success) {
+            state.user = action.payload.user; // update user in state
+          }
+        })
+        .addCase(updateUserProfile.rejected, (state, action) => {
+          state.isLoading = false;
+          // optionally handle error messages
         })
         ;
         
