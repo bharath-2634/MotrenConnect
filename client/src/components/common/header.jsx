@@ -1,23 +1,32 @@
 import { useState , useRef } from "react";
 import { FaHome, FaSearch, FaChartPie, FaClock, FaUser, FaArrowLeft } from "react-icons/fa";
 import { MdCancel , MdEvent , MdRocketLaunch } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const BottomNav = () => {
   const [active, setActive] = useState("home");
   const [searchMode, setSearchMode] = useState(false);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const navItems = [
-    { name: "Home", icon: <FaHome />, id: "home" },
-    { name: "Event", icon: <MdEvent />, id: "event" },
-    { name: "Accelerate", icon: <MdRocketLaunch />, id: "accelerate" },
-    { name: "Search", icon: <FaSearch/>, id: "search" },
-    { name: "Dashboard", icon: <FaUser />, id: "profile" },
+    { name: "Home", icon: <FaHome />, id: "home",to:"home" },
+    { name: "Event", icon: <MdEvent />, id: "event" ,to:"event"},
+    { name: "Accelerate", icon: <MdRocketLaunch />, id: "accelerate",to:"accelerate" },
+    { name: "Search", icon: <FaSearch/>, id: "search"},
+    { name: "Dashboard", icon: <FaUser />, id: "profile" ,to:"dashboard"},
   ];
   const handleSearchClick = () => {
     setSearchMode(true);
     setTimeout(() => inputRef.current?.focus(), 200); 
   };
+
+  const handleClick = (id,to) =>{
+    if(to){
+      navigate(`${to}`);
+    }
+    id === "search" ? handleSearchClick() : setActive(id)
+  }
 
   const exitSearchMode = () => {
     setSearchMode(false);
@@ -49,7 +58,7 @@ const BottomNav = () => {
             className={`flex items-center gap-2 px-4 py-2 rounded-full  transition-all duration-300 ${
               active === item.id ? "bg-[#6C49E0] text-white" : "text-gray-400"
             }`}
-            onClick={() => (item.id === "search" ? handleSearchClick() : setActive(item.id))}
+            onClick={() => {handleClick(item.id,item?.to)}} 
           >
             <span className="text-xl">{item.icon}</span>
             <span

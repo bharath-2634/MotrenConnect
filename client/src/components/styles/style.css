@@ -27,6 +27,14 @@
   border:none !important;
 }
 
+.scroll-container {
+  scroll-snap-type: x mandatory;
+}
+.card {
+  scroll-snap-align: center;
+}
+
+
 /* .google-btn-container div:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3) !important;
 } */
